@@ -1,45 +1,3 @@
-import org.jetbrains.kotlin.fir.analysis.checkers.declaration.Checks.ValueParametersCount.single
-import org.jetbrains.kotlin.ir.backend.js.compile
-
-//import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-// ================== USANDO GRADLE.PROPERTIES
-//plugins {
-//    kotlin("jvm") version "1.6.10"
-//    id("net.saliman.properties") version "1.5.2"
-//    application
-//}
-//
-//group = "me.kauan"
-//version = "1.0-SNAPSHOT"
-//
-//repositories {
-//    mavenCentral()
-//}
-//
-//dependencies {
-//    testImplementation(kotlin("test"))
-//    implementation(kotlin("stdlib"))
-//}
-//
-//application {
-//    mainClass.set("MainKt")
-//}
-//
-//
-//tasks.test {
-//    useJUnit()
-//}
-//
-//tasks.withType<KotlinCompile>() {
-//    kotlinOptions.jvmTarget = "11"
-//}
-//
-//tasks.named<JavaExec>("run") {
-//    systemProperty("URL", findProperty("URL") ?: "")
-//}
-
-
 plugins {
     kotlin("jvm") version "1.6.10"
     application
@@ -76,6 +34,18 @@ sourceSets {
 tasks.test {
     environment("environment", "unit")
     useJUnit()
+}
+
+tasks.register("runDev", JavaExec::class) {
+    classpath = sourceSets.main.get().runtimeClasspath
+    main = "MainKt"
+    environment("environment", "dev")
+}
+
+tasks.register("runPrd", JavaExec::class) {
+    classpath = sourceSets.main.get().runtimeClasspath
+    main = "MainKt"
+    environment("environment", "prd")
 }
 
 tasks.jar {

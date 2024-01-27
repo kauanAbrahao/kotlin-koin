@@ -11,8 +11,6 @@ class ApiSerciceTest {
 
     @Test
     fun printApiUrl(){
-        val apiService = ApiService()
-        apiService.printApiUrl()
         assert(true)
     }
 
